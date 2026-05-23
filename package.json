@@ -1,0 +1,211 @@
+{
+  "name": "buildrunner-helper",
+  "displayName": "Build Runner Helper",
+  "description": "Run Dart build_runner from the status bar: full build, watch, and scoped builds for files with analyzer errors. Works in VS Code, Cursor, VSCodium, and compatible editors.",
+  "version": "1.0.0",
+  "publisher": "buildrunner-helper",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/buildrunner-helper"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/buildrunner-helper/issues"
+  },
+  "homepage": "https://github.com/your-org/buildrunner-helper#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "extensionKind": [
+    "workspace",
+    "ui"
+  ],
+  "categories": [
+    "Other",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "flutter",
+    "dart",
+    "build_runner",
+    "codegen",
+    "freezed",
+    "riverpod",
+    "json_serializable",
+    "cursor",
+    "vscodium"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "workspaceContains:**/pubspec.yaml"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "buildrunnerHelper.showMenu",
+        "title": "Build Runner Helper: Open Menu",
+        "category": "Build Runner"
+      },
+      {
+        "command": "buildrunnerHelper.fullBuild",
+        "title": "Build Runner Helper: Full Project Build",
+        "category": "Build Runner"
+      },
+      {
+        "command": "buildrunnerHelper.fullWatch",
+        "title": "Build Runner Helper: Full Project Watch",
+        "category": "Build Runner"
+      },
+      {
+        "command": "buildrunnerHelper.buildErrorFiles",
+        "title": "Build Runner Helper: Build for Error Files",
+        "category": "Build Runner"
+      },
+      {
+        "command": "buildrunnerHelper.help",
+        "title": "Build Runner Helper: Help",
+        "category": "Build Runner"
+      },
+      {
+        "command": "buildrunnerHelper.about",
+        "title": "Build Runner Helper: About",
+        "category": "Build Runner"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "buildrunnerHelper.showMenu",
+          "when": "workspaceFolderCount > 0"
+        },
+        {
+          "command": "buildrunnerHelper.fullBuild",
+          "when": "false"
+        },
+        {
+          "command": "buildrunnerHelper.fullWatch",
+          "when": "false"
+        },
+        {
+          "command": "buildrunnerHelper.buildErrorFiles",
+          "when": "false"
+        },
+        {
+          "command": "buildrunnerHelper.help",
+          "when": "false"
+        },
+        {
+          "command": "buildrunnerHelper.about",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Build Runner Helper",
+      "properties": {
+        "buildrunnerHelper.commandRunner": {
+          "type": "string",
+          "enum": [
+            "fvm",
+            "flutter-pub",
+            "dart-run"
+          ],
+          "enumDescriptions": [
+            "fvm flutter pub run build_runner …",
+            "flutter pub run build_runner …",
+            "dart run build_runner … (recommended by Dart tooling)"
+          ],
+          "default": "fvm",
+          "description": "How to invoke build_runner in the integrated terminal."
+        },
+        "buildrunnerHelper.deleteConflictingOutputs": {
+          "type": "boolean",
+          "default": true,
+          "description": "Pass --delete-conflicting-outputs to build_runner."
+        },
+        "buildrunnerHelper.extraArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "Extra CLI arguments appended after the mode (build/watch)."
+        },
+        "buildrunnerHelper.confirmFullWatch": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask for confirmation before starting a full-project watch."
+        },
+        "buildrunnerHelper.showRunNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show an information message when a build or watch starts."
+        },
+        "buildrunnerHelper.libDirectory": {
+          "type": "string",
+          "default": "lib",
+          "description": "Project-relative directory scanned for error files (Problems panel)."
+        },
+        "buildrunnerHelper.includeTestErrors": {
+          "type": "boolean",
+          "default": false,
+          "description": "Also include test/ Dart files when building for error files."
+        },
+        "buildrunnerHelper.errorFilterMappings": {
+          "type": "array",
+          "default": [],
+          "description": "Optional path-prefix to build-filter mappings for error-file builds.",
+          "items": {
+            "type": "object",
+            "required": [
+              "pathPrefix",
+              "buildFilter"
+            ],
+            "properties": {
+              "pathPrefix": {
+                "type": "string",
+                "description": "Project-relative path prefix, e.g. lib/features/auth/"
+              },
+              "buildFilter": {
+                "type": "string",
+                "description": "build_runner --build-filter value, e.g. lib/features/auth/**"
+              }
+            }
+          }
+        },
+        "buildrunnerHelper.statusBarPriority": {
+          "type": "number",
+          "default": 50,
+          "description": "Status bar position on the left (lower = further left; higher = further right on that side)."
+        },
+        "buildrunnerHelper.statusBarAlignment": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "left",
+          "description": "Status bar side."
+        },
+        "buildrunnerHelper.showLabel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show \"Build Runner\" text next to the status bar icon."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --allow-missing-repository",
+    "lint": "tsc -p ./ --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}
