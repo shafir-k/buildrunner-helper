@@ -2,7 +2,29 @@
 
 Run [build_runner](https://pub.dev/packages/build_runner) from the editor status bar for Flutter and Dart projects.
 
+**Developer:** Shafir K  
+**Publisher:** `ShafirK`
+
 Compatible with **Visual Studio Code**, **Cursor**, **VSCodium**, **Gitpod**, and any editor that supports the [VS Code extension API](https://code.visualstudio.com/api).
+
+## Install from marketplace
+
+| Editor | Marketplace | Install |
+|--------|-------------|---------|
+| **VS Code** | [Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode) | Extensions → search **Build Runner Helper** |
+| **Cursor** | [Open VSX](https://open-vsx.org) (synced to Cursor) | Extensions → search **Build Runner Helper** |
+
+```bash
+# VS Code
+code --install-extension ShafirK.buildrunner-helper
+
+# Cursor
+cursor --install-extension ShafirK.buildrunner-helper
+```
+
+Or install from a `.vsix` — see [Development](#development) below.
+
+**Publishing / updating the public listing:** see [PUBLISHING.md](./PUBLISHING.md).
 
 ## Features
 
@@ -62,7 +84,7 @@ npm run compile
 
 Press **F5** in VS Code or Cursor to launch an Extension Development Host.
 
-## Package
+## Package (local VSIX)
 
 ```bash
 npm run package
@@ -70,6 +92,15 @@ npm run package
 
 Install the generated `.vsix` via **Extensions → Install from VSIX**.
 
+## Publish publicly
+
+See **[PUBLISHING.md](./PUBLISHING.md)** for step-by-step instructions to publish to:
+
+- Visual Studio Marketplace (VS Code)
+- Open VSX (Cursor, VSCodium, …)
+
 ## License
+
+MIT — Copyright (c) Shafir K
 
 MIT

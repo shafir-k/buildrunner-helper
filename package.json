@@ -2,20 +2,21 @@
   "name": "buildrunner-helper",
   "displayName": "Build Runner Helper",
   "description": "Run Dart build_runner from the status bar: full build, watch, and scoped builds for files with analyzer errors. Works in VS Code, Cursor, VSCodium, and compatible editors.",
-  "version": "1.0.1",
-  "publisher": "shafir-k",
+  "version": "1.0.2",
+  "publisher": "ShafirK",
   "author": {
     "name": "Shafir K"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-org/buildrunner-helper"
+    "url": "https://github.com/shafir-k/buildrunner-helper.git"
   },
   "bugs": {
-    "url": "https://github.com/your-org/buildrunner-helper/issues"
+    "url": "https://github.com/shafir-k/buildrunner-helper/issues"
   },
-  "homepage": "https://github.com/your-org/buildrunner-helper#readme",
+  "homepage": "https://github.com/shafir-k/buildrunner-helper#readme",
+  "qna": "https://github.com/shafir-k/buildrunner-helper/discussions",
   "engines": {
     "vscode": "^1.85.0"
   },
@@ -212,7 +213,10 @@
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "package": "vsce package --allow-missing-repository",
+    "package": "vsce package",
+    "publish:vscode": "vsce publish",
+    "publish:openvsx": "ovsx publish",
+    "publish:all": "npm run publish:vscode && npm run publish:openvsx",
     "lint": "tsc -p ./ --noEmit"
   },
   "devDependencies": {

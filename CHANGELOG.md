@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Set publisher ID to `ShafirK` to match Visual Studio Marketplace account
+
 ## 1.0.1
 
 - Split error-file actions into **Build for error files** and **Watch for error files**
