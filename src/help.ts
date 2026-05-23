@@ -44,7 +44,13 @@ export function showAbout(context: vscode.ExtensionContext): void {
     version?: string;
     publisher?: string;
     description?: string;
+    author?: { name?: string } | string;
   };
+
+  const developer =
+    typeof pkg.author === 'string'
+      ? pkg.author
+      : pkg.author?.name ?? pkg.publisher ?? 'unknown';
 
   void vscode.window.showInformationMessage(
     pkg.displayName ?? 'Build Runner Helper',
@@ -54,7 +60,7 @@ export function showAbout(context: vscode.ExtensionContext): void {
         pkg.description ?? '',
         '',
         `Version ${pkg.version ?? 'unknown'}`,
-        `Publisher: ${pkg.publisher ?? 'unknown'}`,
+        `Developer: ${developer}`,
         '',
         'Compatible with VS Code 1.85+ and forks (Cursor, VSCodium, etc.).',
       ].join('\n'),
