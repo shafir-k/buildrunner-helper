@@ -16,6 +16,8 @@ export interface RunOptions {
   readonly filter?: string;
   readonly combinedFilters?: readonly string[];
   readonly label: string;
+  /** Error-file (or other) scoped watch — show scoped watch confirmation. */
+  readonly scopedWatch?: boolean;
 }
 
 interface RunningSession {
@@ -195,12 +197,6 @@ function notifyRun(label: string, mode: RunnerMode): void {
 
 export async function runBuildRunner(options: RunOptions): Promise<void> {
   if (options.combinedFilters && options.combinedFilters.length > 0) {
-    if (options.mode === 'watch') {
-      void vscode.window.showWarningMessage(
-        'Build Runner Helper: combined filters apply to build only, not watch.',
-      );
-      return;
-    }
     await executeRun(
       buildShellCommand({
         mode: options.mode,
@@ -240,19 +236,25 @@ async function executeRun(command: string, options: RunOptions): Promise<void> {
     }
   }
 
-  if (
-    options.mode === 'watch' &&
-    getExtensionConfig().confirmFullWatch &&
-    !options.filter &&
-    !options.combinedFilters
-  ) {
-    const watchChoice = await vscode.window.showWarningMessage(
-      'Start a full-project build_runner watch? It runs until you stop it (Ctrl+C in the terminal).',
-      'Start watch',
-      'Cancel',
-    );
-    if (watchChoice !== 'Start watch') {
-      return;
+  if (options.mode === 'watch' && getExtensionConfig().confirmFullWatch) {
+    if (options.scopedWatch && options.combinedFilters?.length) {
+      const watchChoice = await vscode.window.showWarningMessage(
+        `Start build_runner watch for ${options.combinedFilters.length} scoped filter(s)? Runs until Ctrl+C in the terminal.`,
+        'Start watch',
+        'Cancel',
+      );
+      if (watchChoice !== 'Start watch') {
+        return;
+      }
+    } else if (!options.filter && !options.combinedFilters) {
+      const watchChoice = await vscode.window.showWarningMessage(
+        'Start a full-project build_runner watch? It runs until you stop it (Ctrl+C in the terminal).',
+        'Start watch',
+        'Cancel',
+      );
+      if (watchChoice !== 'Start watch') {
+        return;
+      }
     }
   }
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- Split error-file actions into **Build for error files** and **Watch for error files**
+
 ## 1.0.0
 
 - Production-ready refactor for general Flutter/Dart projects

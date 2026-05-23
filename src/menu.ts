@@ -7,6 +7,7 @@ export type MenuAction =
   | { type: 'fullBuild' }
   | { type: 'fullWatch' }
   | { type: 'buildErrorFiles' }
+  | { type: 'watchErrorFiles' }
   | { type: 'help' }
   | { type: 'about' };
 
@@ -17,6 +18,7 @@ interface MenuPickItem extends vscode.QuickPickItem {
 export async function showBuildRunnerMenu(): Promise<MenuAction | undefined> {
   const config = getExtensionConfig();
   const runner = config.commandRunner;
+  const errorSummary = summarizeErrorFilesForMenu();
 
   const items: MenuPickItem[] = [
     {
@@ -31,8 +33,13 @@ export async function showBuildRunnerMenu(): Promise<MenuAction | undefined> {
     },
     {
       label: 'Build for error files',
-      description: summarizeErrorFilesForMenu(),
+      description: errorSummary,
       action: { type: 'buildErrorFiles' },
+    },
+    {
+      label: 'Watch for error files',
+      description: errorSummary,
+      action: { type: 'watchErrorFiles' },
     },
     {
       label: 'Help',

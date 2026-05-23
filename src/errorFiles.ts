@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { getExtensionConfig } from './config';
+import { RunnerMode } from './command';
 import { getFlutterWorkspaceFolder, requireFlutterWorkspace } from './workspace';
 import { runBuildRunner } from './runner';
 
@@ -110,7 +111,7 @@ export function summarizeErrorFilesForMenu(): string {
   return `${files.length} file(s) → ${filters.length} filter(s)`;
 }
 
-export async function runBuildRunnerOnErrorFiles(): Promise<void> {
+async function runOnErrorFiles(mode: RunnerMode): Promise<void> {
   const folder = requireFlutterWorkspace();
   if (!folder) {
     return;
@@ -126,10 +127,20 @@ export async function runBuildRunnerOnErrorFiles(): Promise<void> {
   }
 
   const combinedFilters = buildFiltersForErrorFiles(files);
+  const modeLabel = mode === 'build' ? 'build' : 'watch';
 
   await runBuildRunner({
-    mode: 'build',
+    mode,
     combinedFilters,
-    label: `Error files (${files.length}, ${combinedFilters.length} filters)`,
+    label: `Error files ${modeLabel} (${files.length} files, ${combinedFilters.length} filters)`,
+    scopedWatch: mode === 'watch',
   });
+}
+
+export function runBuildRunnerOnErrorFiles(): Promise<void> {
+  return runOnErrorFiles('build');
+}
+
+export function runWatchRunnerOnErrorFiles(): Promise<void> {
+  return runOnErrorFiles('watch');
 }

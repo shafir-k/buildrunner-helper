@@ -1,5 +1,8 @@
 import * as vscode from 'vscode';
-import { runBuildRunnerOnErrorFiles } from './errorFiles';
+import {
+  runBuildRunnerOnErrorFiles,
+  runWatchRunnerOnErrorFiles,
+} from './errorFiles';
 import { showAbout, showHelp } from './help';
 import { showBuildRunnerMenu } from './menu';
 import {
@@ -153,6 +156,9 @@ function registerCommands(context: vscode.ExtensionContext): void {
       case 'buildErrorFiles':
         await afterRunner(() => runBuildRunnerOnErrorFiles());
         break;
+      case 'watchErrorFiles':
+        await afterRunner(() => runWatchRunnerOnErrorFiles());
+        break;
       case 'help':
         showHelp();
         break;
@@ -176,6 +182,10 @@ function registerCommands(context: vscode.ExtensionContext): void {
 
   register('buildrunnerHelper.buildErrorFiles', () =>
     afterRunner(() => runBuildRunnerOnErrorFiles()),
+  );
+
+  register('buildrunnerHelper.watchErrorFiles', () =>
+    afterRunner(() => runWatchRunnerOnErrorFiles()),
   );
 
   register('buildrunnerHelper.help', () => showHelp());

@@ -2,7 +2,7 @@
   "name": "buildrunner-helper",
   "displayName": "Build Runner Helper",
   "description": "Run Dart build_runner from the status bar: full build, watch, and scoped builds for files with analyzer errors. Works in VS Code, Cursor, VSCodium, and compatible editors.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "buildrunner-helper",
   "license": "MIT",
   "repository": {
@@ -63,6 +63,11 @@
         "category": "Build Runner"
       },
       {
+        "command": "buildrunnerHelper.watchErrorFiles",
+        "title": "Build Runner Helper: Watch for Error Files",
+        "category": "Build Runner"
+      },
+      {
         "command": "buildrunnerHelper.help",
         "title": "Build Runner Helper: Help",
         "category": "Build Runner"
@@ -89,6 +94,10 @@
         },
         {
           "command": "buildrunnerHelper.buildErrorFiles",
+          "when": "false"
+        },
+        {
+          "command": "buildrunnerHelper.watchErrorFiles",
           "when": "false"
         },
         {

@@ -8,7 +8,8 @@ Compatible with **Visual Studio Code**, **Cursor**, **VSCodium**, **Gitpod**, an
 
 - **Full project build** — one-shot codegen for the whole package
 - **Full project watch** — continuous codegen (with optional confirmation)
-- **Build for error files** — scoped build using `--build-filter` for directories that contain files with analyzer **Errors** in the Problems panel
+- **Build for error files** — scoped build using `--build-filter` for directories with analyzer **Errors** in Problems
+- **Watch for error files** — same scoped filters in watch mode
 - **Help / About** — usage and version info
 
 Click **Build Runner** in the status bar (left by default) to open the menu.
