@@ -7,24 +7,33 @@ Run [build_runner](https://pub.dev/packages/build_runner) from the editor status
 
 Compatible with **Visual Studio Code**, **Cursor**, **VSCodium**, **Gitpod**, and any editor that supports the [VS Code extension API](https://code.visualstudio.com/api).
 
-## Install from marketplace
+## Install
 
-| Editor | Marketplace | Install |
-|--------|-------------|---------|
-| **VS Code** | [Visual Studio Marketplace](https://marketplace.visualstudio.com/vscode) | Extensions → search **Build Runner Helper** |
-| **Cursor** | [Open VSX](https://open-vsx.org) (synced to Cursor) | Extensions → search **Build Runner Helper** |
+### VS Code
+
+[**Install from Visual Studio Marketplace →**](https://marketplace.visualstudio.com/items?itemName=ShafirK.buildrunner-helper)
+
+Extensions → search **Build Runner Helper**, or:
 
 ```bash
-# VS Code
 code --install-extension ShafirK.buildrunner-helper
-
-# Cursor
-cursor --install-extension ShafirK.buildrunner-helper
 ```
 
-Or install from a `.vsix` — see [Development](#development) below.
+### Cursor
 
-**Publishing / updating the public listing:** see [PUBLISHING.md](./PUBLISHING.md).
+[**Install from Cursor Marketplace →**](https://marketplace.cursorapi.com/items/?itemName=buildrunner-helper.buildrunner-helper)
+
+Extensions → search **Build Runner Helper**, or:
+
+```bash
+cursor --install-extension buildrunner-helper.buildrunner-helper
+```
+
+### Other editors (VSCodium, Gitpod, …)
+
+Search **Build Runner Helper** on [Open VSX](https://open-vsx.org) or install from a `.vsix` — see [Development](#development) below.
+
+**Publishing / updating listings:** see [PUBLISHING.md](./PUBLISHING.md).
 
 ## Features
 
@@ -102,5 +111,3 @@ See **[PUBLISHING.md](./PUBLISHING.md)** for step-by-step instructions to publis
 ## License
 
 MIT — Copyright (c) Shafir K
-
-MIT
