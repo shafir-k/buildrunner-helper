@@ -1,113 +1,74 @@
 # Build Runner Helper
 
-Run [build_runner](https://pub.dev/packages/build_runner) from the editor status bar for Flutter and Dart projects.
+Run **build_runner** from your editor’s status bar — no more copying long terminal commands.
 
-**Developer:** Shafir K  
-**Publisher:** `ShafirK`
-
-Compatible with **Visual Studio Code**, **Cursor**, **VSCodium**, **Gitpod**, and any editor that supports the [VS Code extension API](https://code.visualstudio.com/api).
+Works in **VS Code**, **Cursor**, **VSCodium**, and other compatible editors.
 
 ## Install
 
-### VS Code
+**VS Code** — [Get it on the Marketplace](https://marketplace.visualstudio.com/items?itemName=ShafirK.buildrunner-helper)
 
-[**Install from Visual Studio Marketplace →**](https://marketplace.visualstudio.com/items?itemName=ShafirK.buildrunner-helper)
+**Cursor** — [Get it on the Cursor Marketplace](https://marketplace.cursorapi.com/items/?itemName=ShafirK.buildrunner-helper)
 
-Extensions → search **Build Runner Helper**, or:
+Or open **Extensions**, search **Build Runner Helper**, and install.
 
-```bash
-code --install-extension ShafirK.buildrunner-helper
-```
+## Quick start
 
-### Cursor
+1. Open a Flutter/Dart project (folder with `pubspec.yaml`).
+2. Look at the **bottom status bar** for **Build Runner** (left side by default).
+3. **Click it** and pick an action.
 
-[**Install from Cursor Marketplace →**](https://marketplace.cursorapi.com/items/?itemName=buildrunner-helper.buildrunner-helper)
+The icon spins while a build or watch is running. When it stops, the command has finished (or watch is still active until you stop it).
 
-Extensions → search **Build Runner Helper**, or:
+## What you can do
 
-```bash
-cursor --install-extension buildrunner-helper.buildrunner-helper
-```
+| Menu item | When to use it |
+|-----------|----------------|
+| **Full project build** | Run codegen once for the whole app (after big changes or `pubspec` updates). |
+| **Full project watch** | Keep codegen running while you work (stops when you press Ctrl+C in the terminal). |
+| **Build for error files** | You have red **Errors** in Problems — runs build_runner only for those files/folders. |
+| **Watch for error files** | Same as above, but in watch mode for those scopes. |
+| **Help** | Short guide inside the editor. |
+| **About** | Version and extension info. |
 
-### Other editors (VSCodium, Gitpod, …)
+Commands run in a terminal named **Build Runner**.
 
-Search **Build Runner Helper** on [Open VSX](https://open-vsx.org) or install from a `.vsix` — see [Development](#development) below.
+## Stop a running watch
 
-**Publishing / updating listings:** see [PUBLISHING.md](./PUBLISHING.md).
+1. Open the **Build Runner** terminal (bottom panel).
+2. Press **Ctrl+C**.
 
-## Features
+## What you need
 
-- **Full project build** — one-shot codegen for the whole package
-- **Full project watch** — continuous codegen (with optional confirmation)
-- **Build for error files** — scoped build using `--build-filter` for directories with analyzer **Errors** in Problems
-- **Watch for error files** — same scoped filters in watch mode
-- **Help / About** — usage and version info
+- A Flutter/Dart project with `build_runner` set up (Freezed, Riverpod, JSON serializable, etc.).
+- `fvm`, `flutter`, or `dart` available in your terminal (configurable in settings).
 
-Click **Build Runner** in the status bar (left by default) to open the menu.
+## Settings (optional)
 
-The status icon spins while a build or watch is running and returns to idle when the terminal command finishes.
+Open **Settings** and search **Build Runner Helper**.
 
-## Requirements
+| Setting | What it does |
+|---------|----------------|
+| **Command runner** | How to run build_runner: `fvm` (default), `flutter pub run`, or `dart run`. |
+| **Delete conflicting outputs** | Adds `--delete-conflicting-outputs` (recommended). |
+| **Confirm full watch** | Ask before starting a full-project watch. |
+| **Lib directory** | Where to look for error files (default: `lib`). |
+| **Include test errors** | Also include `test/` when using “error files” actions. |
+| **Status bar alignment** | Show the icon on the left or right of the status bar. |
+| **Show label** | Show “Build Runner” text next to the icon. |
 
-- A workspace folder containing `pubspec.yaml`
-- `build_runner` (and generators such as `freezed`, `json_serializable`, `riverpod_generator`, etc.) in your project
-- A shell where your chosen runner command is available (`fvm`, `flutter`, or `dart`)
+### Custom folders for “error files”
 
-## Settings
+If you use custom project layout, you can map folders to build filters in settings (`errorFilterMappings`). Most users can leave this empty.
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| `buildrunnerHelper.commandRunner` | `fvm` | `fvm`, `flutter-pub`, or `dart-run` |
-| `buildrunnerHelper.deleteConflictingOutputs` | `true` | Add `--delete-conflicting-outputs` |
-| `buildrunnerHelper.extraArgs` | `[]` | Extra CLI arguments |
-| `buildrunnerHelper.confirmFullWatch` | `true` | Confirm before full watch |
-| `buildrunnerHelper.showRunNotifications` | `true` | Toast when a run starts |
-| `buildrunnerHelper.libDirectory` | `lib` | Root for error-file scan |
-| `buildrunnerHelper.includeTestErrors` | `false` | Include `test/` in error scan |
-| `buildrunnerHelper.errorFilterMappings` | `[]` | Custom path → filter mappings |
-| `buildrunnerHelper.statusBarAlignment` | `left` | `left` or `right` |
-| `buildrunnerHelper.statusBarPriority` | `50` | Status bar ordering |
-| `buildrunnerHelper.showLabel` | `true` | Show text next to icon |
+## Problems?
 
-### Custom error filters
+- **No “Build Runner” in the status bar** — Open the project root (where `pubspec.yaml` is) and reload the window.
+- **Command fails in terminal** — Check that `fvm` / `flutter` / `dart` works in the integrated terminal and that `build_runner` is in your project.
+- **Still see analyzer errors after build** — Fix the Dart issues first, then run **Build for error files** again or use a full project build.
 
-By default, each file with errors maps to a directory glob (`lib/some/path/**`). Override with:
+**Feedback:** [GitHub issues](https://github.com/shafir-k/buildrunner-helper/issues)
 
-```json
-{
-  "buildrunnerHelper.errorFilterMappings": [
-    {
-      "pathPrefix": "lib/features/shop/",
-      "buildFilter": "lib/features/shop/**"
-    }
-  ]
-}
-```
+---
 
-## Development
-
-```bash
-npm install
-npm run compile
-```
-
-Press **F5** in VS Code or Cursor to launch an Extension Development Host.
-
-## Package (local VSIX)
-
-```bash
-npm run package
-```
-
-Install the generated `.vsix` via **Extensions → Install from VSIX**.
-
-## Publish publicly
-
-See **[PUBLISHING.md](./PUBLISHING.md)** for step-by-step instructions to publish to:
-
-- Visual Studio Marketplace (VS Code)
-- Open VSX (Cursor, VSCodium, …)
-
-## License
-
-MIT — Copyright (c) Shafir K
+By **Shafir K**
