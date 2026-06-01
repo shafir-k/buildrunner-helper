@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3
+
+- User-focused README with full feature documentation
+
 ## 1.0.2
 
 - Published on VS Code and Cursor marketplaces under publisher ShafirK
